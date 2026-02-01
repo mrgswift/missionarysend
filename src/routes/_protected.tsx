@@ -4,6 +4,7 @@ import { authMiddleware } from '@/server/functions/auth'
 import { getUserProfileFn } from '@/server/functions/users'
 import { getVerificationStatusFn } from '@/server/functions/verification'
 import { AppLayout } from '@/components/layout'
+import type { AccountType } from '@/types'
 
 export const Route = createFileRoute('/_protected')({
   loader: async ({ location }) => {
@@ -47,12 +48,12 @@ export const Route = createFileRoute('/_protected')({
 function ProtectedLayout() {
   const { profile } = Route.useLoaderData()
 
+  // Determine account type with proper typing
+  const accountType: AccountType =
+    (profile?.accountType as AccountType) || 'missionary'
+
   return (
-    <AppLayout
-      accountType={
-        profile?.accountType as 'missionary' | 'organization' | undefined
-      }
-    >
+    <AppLayout accountType={accountType}>
       <Outlet />
     </AppLayout>
   )

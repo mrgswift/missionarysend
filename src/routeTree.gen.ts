@@ -14,6 +14,7 @@ import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as ProtectedSettingsRouteImport } from './routes/_protected/settings'
+import { Route as ProtectedPrayerRouteImport } from './routes/_protected/prayer'
 import { Route as ProtectedExampleProtectedRouteRouteImport } from './routes/_protected/example-protected-route'
 import { Route as ProtectedDonationsRouteImport } from './routes/_protected/donations'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
@@ -30,6 +31,9 @@ import { Route as AuthAccountLockedRouteImport } from './routes/_auth/account-lo
 import { Route as ApiHelloRouteImport } from './routes/_api/hello'
 import { Route as ProtectedTripsIndexRouteImport } from './routes/_protected/trips/index'
 import { Route as ProtectedTripsNewRouteImport } from './routes/_protected/trips/new'
+import { Route as ProtectedTripTripIdRouteImport } from './routes/_protected/trip.$tripId'
+import { Route as PublicInvitePrayerTokenRouteImport } from './routes/_public/invite.prayer.$token'
+import { Route as PublicInviteFollowerTokenRouteImport } from './routes/_public/invite.follower.$token'
 import { Route as ProtectedTripsTripIdSettingsRouteImport } from './routes/_protected/trips.$tripId.settings'
 
 const PublicRoute = PublicRouteImport.update({
@@ -52,6 +56,11 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
 const ProtectedSettingsRoute = ProtectedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+const ProtectedPrayerRoute = ProtectedPrayerRouteImport.update({
+  id: '/prayer',
+  path: '/prayer',
   getParentRoute: () => ProtectedRoute,
 } as any)
 const ProtectedExampleProtectedRouteRoute =
@@ -135,6 +144,22 @@ const ProtectedTripsNewRoute = ProtectedTripsNewRouteImport.update({
   path: '/trips/new',
   getParentRoute: () => ProtectedRoute,
 } as any)
+const ProtectedTripTripIdRoute = ProtectedTripTripIdRouteImport.update({
+  id: '/trip/$tripId',
+  path: '/trip/$tripId',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+const PublicInvitePrayerTokenRoute = PublicInvitePrayerTokenRouteImport.update({
+  id: '/invite/prayer/$token',
+  path: '/invite/prayer/$token',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicInviteFollowerTokenRoute =
+  PublicInviteFollowerTokenRouteImport.update({
+    id: '/invite/follower/$token',
+    path: '/invite/follower/$token',
+    getParentRoute: () => PublicRoute,
+  } as any)
 const ProtectedTripsTripIdSettingsRoute =
   ProtectedTripsTripIdSettingsRouteImport.update({
     id: '/trips/$tripId/settings',
@@ -157,11 +182,15 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof ProtectedDashboardRoute
   '/donations': typeof ProtectedDonationsRoute
   '/example-protected-route': typeof ProtectedExampleProtectedRouteRoute
+  '/prayer': typeof ProtectedPrayerRoute
   '/settings': typeof ProtectedSettingsRoute
   '/': typeof PublicIndexRoute
+  '/trip/$tripId': typeof ProtectedTripTripIdRoute
   '/trips/new': typeof ProtectedTripsNewRoute
   '/trips': typeof ProtectedTripsIndexRoute
   '/trips/$tripId/settings': typeof ProtectedTripsTripIdSettingsRoute
+  '/invite/follower/$token': typeof PublicInviteFollowerTokenRoute
+  '/invite/prayer/$token': typeof PublicInvitePrayerTokenRoute
 }
 export interface FileRoutesByTo {
   '/hello': typeof ApiHelloRoute
@@ -178,11 +207,15 @@ export interface FileRoutesByTo {
   '/dashboard': typeof ProtectedDashboardRoute
   '/donations': typeof ProtectedDonationsRoute
   '/example-protected-route': typeof ProtectedExampleProtectedRouteRoute
+  '/prayer': typeof ProtectedPrayerRoute
   '/settings': typeof ProtectedSettingsRoute
   '/': typeof PublicIndexRoute
+  '/trip/$tripId': typeof ProtectedTripTripIdRoute
   '/trips/new': typeof ProtectedTripsNewRoute
   '/trips': typeof ProtectedTripsIndexRoute
   '/trips/$tripId/settings': typeof ProtectedTripsTripIdSettingsRoute
+  '/invite/follower/$token': typeof PublicInviteFollowerTokenRoute
+  '/invite/prayer/$token': typeof PublicInvitePrayerTokenRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -203,11 +236,15 @@ export interface FileRoutesById {
   '/_protected/dashboard': typeof ProtectedDashboardRoute
   '/_protected/donations': typeof ProtectedDonationsRoute
   '/_protected/example-protected-route': typeof ProtectedExampleProtectedRouteRoute
+  '/_protected/prayer': typeof ProtectedPrayerRoute
   '/_protected/settings': typeof ProtectedSettingsRoute
   '/_public/': typeof PublicIndexRoute
+  '/_protected/trip/$tripId': typeof ProtectedTripTripIdRoute
   '/_protected/trips/new': typeof ProtectedTripsNewRoute
   '/_protected/trips/': typeof ProtectedTripsIndexRoute
   '/_protected/trips/$tripId/settings': typeof ProtectedTripsTripIdSettingsRoute
+  '/_public/invite/follower/$token': typeof PublicInviteFollowerTokenRoute
+  '/_public/invite/prayer/$token': typeof PublicInvitePrayerTokenRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -226,11 +263,15 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/donations'
     | '/example-protected-route'
+    | '/prayer'
     | '/settings'
     | '/'
+    | '/trip/$tripId'
     | '/trips/new'
     | '/trips'
     | '/trips/$tripId/settings'
+    | '/invite/follower/$token'
+    | '/invite/prayer/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/hello'
@@ -247,11 +288,15 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/donations'
     | '/example-protected-route'
+    | '/prayer'
     | '/settings'
     | '/'
+    | '/trip/$tripId'
     | '/trips/new'
     | '/trips'
     | '/trips/$tripId/settings'
+    | '/invite/follower/$token'
+    | '/invite/prayer/$token'
   id:
     | '__root__'
     | '/_auth'
@@ -271,11 +316,15 @@ export interface FileRouteTypes {
     | '/_protected/dashboard'
     | '/_protected/donations'
     | '/_protected/example-protected-route'
+    | '/_protected/prayer'
     | '/_protected/settings'
     | '/_public/'
+    | '/_protected/trip/$tripId'
     | '/_protected/trips/new'
     | '/_protected/trips/'
     | '/_protected/trips/$tripId/settings'
+    | '/_public/invite/follower/$token'
+    | '/_public/invite/prayer/$token'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -320,6 +369,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof ProtectedSettingsRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_protected/prayer': {
+      id: '/_protected/prayer'
+      path: '/prayer'
+      fullPath: '/prayer'
+      preLoaderRoute: typeof ProtectedPrayerRouteImport
       parentRoute: typeof ProtectedRoute
     }
     '/_protected/example-protected-route': {
@@ -434,6 +490,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedTripsNewRouteImport
       parentRoute: typeof ProtectedRoute
     }
+    '/_protected/trip/$tripId': {
+      id: '/_protected/trip/$tripId'
+      path: '/trip/$tripId'
+      fullPath: '/trip/$tripId'
+      preLoaderRoute: typeof ProtectedTripTripIdRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_public/invite/prayer/$token': {
+      id: '/_public/invite/prayer/$token'
+      path: '/invite/prayer/$token'
+      fullPath: '/invite/prayer/$token'
+      preLoaderRoute: typeof PublicInvitePrayerTokenRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/invite/follower/$token': {
+      id: '/_public/invite/follower/$token'
+      path: '/invite/follower/$token'
+      fullPath: '/invite/follower/$token'
+      preLoaderRoute: typeof PublicInviteFollowerTokenRouteImport
+      parentRoute: typeof PublicRoute
+    }
     '/_protected/trips/$tripId/settings': {
       id: '/_protected/trips/$tripId/settings'
       path: '/trips/$tripId/settings'
@@ -475,7 +552,9 @@ interface ProtectedRouteChildren {
   ProtectedDashboardRoute: typeof ProtectedDashboardRoute
   ProtectedDonationsRoute: typeof ProtectedDonationsRoute
   ProtectedExampleProtectedRouteRoute: typeof ProtectedExampleProtectedRouteRoute
+  ProtectedPrayerRoute: typeof ProtectedPrayerRoute
   ProtectedSettingsRoute: typeof ProtectedSettingsRoute
+  ProtectedTripTripIdRoute: typeof ProtectedTripTripIdRoute
   ProtectedTripsNewRoute: typeof ProtectedTripsNewRoute
   ProtectedTripsIndexRoute: typeof ProtectedTripsIndexRoute
   ProtectedTripsTripIdSettingsRoute: typeof ProtectedTripsTripIdSettingsRoute
@@ -486,7 +565,9 @@ const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedDashboardRoute: ProtectedDashboardRoute,
   ProtectedDonationsRoute: ProtectedDonationsRoute,
   ProtectedExampleProtectedRouteRoute: ProtectedExampleProtectedRouteRoute,
+  ProtectedPrayerRoute: ProtectedPrayerRoute,
   ProtectedSettingsRoute: ProtectedSettingsRoute,
+  ProtectedTripTripIdRoute: ProtectedTripTripIdRoute,
   ProtectedTripsNewRoute: ProtectedTripsNewRoute,
   ProtectedTripsIndexRoute: ProtectedTripsIndexRoute,
   ProtectedTripsTripIdSettingsRoute: ProtectedTripsTripIdSettingsRoute,
@@ -498,10 +579,14 @@ const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
 
 interface PublicRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute
+  PublicInviteFollowerTokenRoute: typeof PublicInviteFollowerTokenRoute
+  PublicInvitePrayerTokenRoute: typeof PublicInvitePrayerTokenRoute
 }
 
 const PublicRouteChildren: PublicRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
+  PublicInviteFollowerTokenRoute: PublicInviteFollowerTokenRoute,
+  PublicInvitePrayerTokenRoute: PublicInvitePrayerTokenRoute,
 }
 
 const PublicRouteWithChildren =

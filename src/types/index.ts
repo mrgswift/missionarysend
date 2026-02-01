@@ -1,5 +1,9 @@
 // Account Types
-export type AccountType = 'missionary' | 'organization'
+export type AccountType =
+  | 'missionary'
+  | 'organization'
+  | 'follower'
+  | 'intercessor'
 
 // User Profile (extends Appwrite Users table)
 export interface UserProfile {

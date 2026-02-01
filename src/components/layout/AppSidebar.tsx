@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'motion/react'
 import {
   LayoutDashboard,
   Map,
-  Users,
   Heart,
   BookOpen,
   Settings,
@@ -13,6 +12,7 @@ import {
   ChevronRight,
   LogOut,
   HandHeart,
+  Users,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -34,28 +34,29 @@ interface AppSidebarProps {
   profile?: {
     name: string
     email: string
+    accountType?: string
   } | null
   isCollapsed: boolean
   onToggle: () => void
   accountType?: AccountType
 }
 
-export function AppSidebar({ isCollapsed, onToggle }: AppSidebarProps) {
+export function AppSidebar({
+  isCollapsed,
+  onToggle,
+  accountType,
+}: AppSidebarProps) {
   const location = useLocation()
   const { signOut } = useAuth()
 
-  const mainNavItems: NavItem[] = [
+  // Navigation items for missionaries/organizations
+  const missionaryNavItems: NavItem[] = [
     {
       title: 'Dashboard',
       href: '/dashboard',
       icon: <LayoutDashboard className="h-5 w-5" />,
     },
     { title: 'My Trips', href: '/trips', icon: <Map className="h-5 w-5" /> },
-    {
-      title: 'Following',
-      href: '/following',
-      icon: <Users className="h-5 w-5" />,
-    },
     {
       title: 'Donations',
       href: '/donations',
@@ -72,6 +73,53 @@ export function AppSidebar({ isCollapsed, onToggle }: AppSidebarProps) {
       icon: <HandHeart className="h-5 w-5" />,
     },
   ]
+
+  // Navigation items for followers
+  const followerNavItems: NavItem[] = [
+    {
+      title: 'Dashboard',
+      href: '/dashboard',
+      icon: <LayoutDashboard className="h-5 w-5" />,
+    },
+    {
+      title: 'Following',
+      href: '/dashboard',
+      icon: <Users className="h-5 w-5" />,
+    },
+    {
+      title: 'My Donations',
+      href: '/donations',
+      icon: <Heart className="h-5 w-5" />,
+    },
+  ]
+
+  // Navigation items for prayer intercessors
+  const intercessorNavItems: NavItem[] = [
+    {
+      title: 'Dashboard',
+      href: '/dashboard',
+      icon: <LayoutDashboard className="h-5 w-5" />,
+    },
+    {
+      title: 'Prayer Teams',
+      href: '/dashboard',
+      icon: <HandHeart className="h-5 w-5" />,
+    },
+  ]
+
+  // Select navigation based on account type
+  const getMainNavItems = (): NavItem[] => {
+    switch (accountType) {
+      case 'follower':
+        return followerNavItems
+      case 'intercessor':
+        return intercessorNavItems
+      default:
+        return missionaryNavItems
+    }
+  }
+
+  const mainNavItems = getMainNavItems()
 
   const bottomNavItems: NavItem[] = [
     {
