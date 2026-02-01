@@ -49,18 +49,20 @@ export function AccountSettingsPage({
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Tab Navigation */}
-          <div className="border-b border-slate-200 bg-slate-50/50">
-            <TabsList className="h-auto p-0 bg-transparent rounded-none w-full justify-start overflow-x-auto">
+          <div className="border-b border-slate-200 bg-slate-50/50 overflow-x-auto">
+            <TabsList className="h-auto p-0 bg-transparent rounded-none w-max min-w-full justify-start">
               {tabs.map((tab) => {
                 const Icon = tab.icon
                 return (
                   <TabsTrigger
                     key={tab.id}
                     value={tab.id}
-                    className="flex items-center gap-2 px-4 py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-slate-900 data-[state=active]:bg-white data-[state=active]:shadow-none text-slate-600 data-[state=active]:text-slate-900 transition-all"
+                    className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2.5 md:py-3 rounded-none border-b-2 border-transparent data-[state=active]:border-slate-900 data-[state=active]:bg-white data-[state=active]:shadow-none text-slate-600 data-[state=active]:text-slate-900 transition-all whitespace-nowrap text-xs md:text-sm"
                   >
-                    <Icon className="h-4 w-4" />
-                    <span className="hidden sm:inline">{tab.label}</span>
+                    <Icon className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                    <span className="hidden xs:inline sm:inline">
+                      {tab.label}
+                    </span>
                   </TabsTrigger>
                 )
               })}
@@ -68,7 +70,7 @@ export function AccountSettingsPage({
           </div>
 
           {/* Tab Content */}
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <TabsContent value="profile" className="m-0">
               <ProfileSection profile={profile} />
             </TabsContent>

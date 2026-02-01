@@ -19,6 +19,17 @@ export function AppLayout({
 }: AppLayoutProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Load collapsed state from localStorage
   useEffect(() => {
@@ -39,6 +50,9 @@ export function AppLayout({
   useEffect(() => {
     setIsMobileMenuOpen(false)
   }, [])
+
+  // Calculate margin for desktop sidebar
+  const sidebarMargin = isMobile ? 0 : isCollapsed ? 72 : 240
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -81,30 +95,20 @@ export function AppLayout({
       </AnimatePresence>
 
       {/* Main Content Area */}
-      <div className="min-h-screen flex flex-col md:ml-0">
-        {/* Desktop: Animated margin based on sidebar state */}
-        <motion.div
-          initial={false}
-          animate={{
-            marginLeft:
-              typeof window !== 'undefined' && window.innerWidth >= 768
-                ? isCollapsed
-                  ? 72
-                  : 240
-                : 0,
-          }}
-          transition={{ duration: 0.2, ease: 'easeInOut' }}
-          className="min-h-screen flex flex-col"
-        >
-          <AppHeader
-            title={title}
-            onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            isMobileMenuOpen={isMobileMenuOpen}
-          />
+      <motion.div
+        initial={false}
+        animate={{ marginLeft: sidebarMargin }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        className="min-h-screen flex flex-col"
+      >
+        <AppHeader
+          title={title}
+          onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          isMobileMenuOpen={isMobileMenuOpen}
+        />
 
-          <main className="flex-1 p-4 md:p-6">{children || <Outlet />}</main>
-        </motion.div>
-      </div>
+        <main className="flex-1 p-4 md:p-6">{children || <Outlet />}</main>
+      </motion.div>
     </div>
   )
 }
@@ -118,7 +122,9 @@ export function PageContainer({
   className?: string
 }) {
   return (
-    <div className={cn('w-full max-w-7xl mx-auto', className)}>{children}</div>
+    <div className={cn('w-full max-w-7xl mx-auto px-0', className)}>
+      {children}
+    </div>
   )
 }
 
@@ -134,8 +140,14 @@ export function PageHeader({
   return (
     <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h1 className="text-2xl font-semibold text-slate-900">{title}</h1>
-        {description && <p className="text-slate-500 mt-1">{description}</p>}
+        <h1 className="text-xl sm:text-2xl font-semibold text-slate-900">
+          {title}
+        </h1>
+        {description && (
+          <p className="text-sm sm:text-base text-slate-500 mt-1">
+            {description}
+          </p>
+        )}
       </div>
       {actions && <div className="flex items-center gap-2">{actions}</div>}
     </div>
