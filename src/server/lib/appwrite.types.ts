@@ -14,6 +14,7 @@ export type Users = Models.Row & {
   unlockKey: string
   accountLocked: boolean
   twoFactorEnabled: boolean
+  avatarFileId: string | null
 }
 
 export type OrganizationMembers = Models.Row & {

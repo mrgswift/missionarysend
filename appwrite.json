@@ -1,9 +1,10 @@
 {
-  "projectId": "697e4e680017bed1892c",
+  "projectId": "696bae190023fc144ede",
+  "endpoint": "https://sfo.cloud.appwrite.io/v1",
   "databases": [
     {
-      "$id": "imagine-project-db",
-      "name": "Imagine Project DB",
+      "$id": "697eb68200296ed8c026",
+      "name": "Missionary Send DB",
       "enabled": true
     }
   ],
@@ -11,7 +12,7 @@
     {
       "$id": "users",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "users",
       "enabled": true,
       "documentSecurity": true,
@@ -124,6 +125,15 @@
           "required": false,
           "array": false,
           "default": false
+        },
+        {
+          "key": "avatarFileId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 20000,
+          "default": null,
+          "encrypt": false
         }
       ],
       "indexes": [
@@ -146,7 +156,7 @@
     {
       "$id": "organizationMembers",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "organizationMembers",
       "enabled": true,
       "documentSecurity": true,
@@ -217,7 +227,7 @@
     {
       "$id": "trips",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "trips",
       "enabled": true,
       "documentSecurity": true,
@@ -361,7 +371,7 @@
     {
       "$id": "tripFollowers",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "tripFollowers",
       "enabled": true,
       "documentSecurity": true,
@@ -457,7 +467,7 @@
     {
       "$id": "donations",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "donations",
       "enabled": true,
       "documentSecurity": true,
@@ -585,7 +595,7 @@
     {
       "$id": "tripUpdates",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "tripUpdates",
       "enabled": true,
       "documentSecurity": true,
@@ -654,7 +664,7 @@
     {
       "$id": "comments",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "comments",
       "enabled": true,
       "documentSecurity": true,
@@ -741,7 +751,7 @@
     {
       "$id": "reactions",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "reactions",
       "enabled": true,
       "documentSecurity": true,
@@ -803,7 +813,7 @@
     {
       "$id": "journalEntries",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "journalEntries",
       "enabled": true,
       "documentSecurity": true,
@@ -872,7 +882,7 @@
     {
       "$id": "prayerIntercessors",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "prayerIntercessors",
       "enabled": true,
       "documentSecurity": true,
@@ -950,7 +960,7 @@
     {
       "$id": "prayerRequests",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "prayerRequests",
       "enabled": true,
       "documentSecurity": true,
@@ -1019,7 +1029,7 @@
     {
       "$id": "notifications",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "notifications",
       "enabled": true,
       "documentSecurity": true,
@@ -1129,7 +1139,7 @@
     {
       "$id": "tripMissionaries",
       "$permissions": [],
-      "databaseId": "imagine-project-db",
+      "databaseId": "697eb68200296ed8c026",
       "name": "tripMissionaries",
       "enabled": true,
       "documentSecurity": true,
@@ -1216,7 +1226,7 @@
   ],
   "buckets": [
     {
-      "$id": "imagine-project-bucket",
+      "$id": "696c0534001abce6e28f",
       "$permissions": [],
       "fileSecurity": true,
       "name": "imagine-project-bucket",

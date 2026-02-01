@@ -119,6 +119,7 @@ export const signUpWithProfileFn = createServerFn({ method: 'POST' })
         unlockKey,
         accountLocked: false,
         twoFactorEnabled: false,
+        avatarFileId: null,
       })
 
       // Send email verification

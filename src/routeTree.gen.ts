@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/_auth'
 import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as ProtectedSettingsRouteImport } from './routes/_protected/settings'
 import { Route as ProtectedExampleProtectedRouteRouteImport } from './routes/_protected/example-protected-route'
+import { Route as ProtectedDonationsRouteImport } from './routes/_protected/donations'
 import { Route as ProtectedDashboardRouteImport } from './routes/_protected/dashboard'
 import { Route as ProtectedActivityRouteImport } from './routes/_protected/activity'
 import { Route as AuthVerifyEmailRouteImport } from './routes/_auth/verify-email'
@@ -59,6 +60,11 @@ const ProtectedExampleProtectedRouteRoute =
     path: '/example-protected-route',
     getParentRoute: () => ProtectedRoute,
   } as any)
+const ProtectedDonationsRoute = ProtectedDonationsRouteImport.update({
+  id: '/donations',
+  path: '/donations',
+  getParentRoute: () => ProtectedRoute,
+} as any)
 const ProtectedDashboardRoute = ProtectedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -149,6 +155,7 @@ export interface FileRoutesByFullPath {
   '/verify-email': typeof AuthVerifyEmailRoute
   '/activity': typeof ProtectedActivityRoute
   '/dashboard': typeof ProtectedDashboardRoute
+  '/donations': typeof ProtectedDonationsRoute
   '/example-protected-route': typeof ProtectedExampleProtectedRouteRoute
   '/settings': typeof ProtectedSettingsRoute
   '/': typeof PublicIndexRoute
@@ -169,6 +176,7 @@ export interface FileRoutesByTo {
   '/verify-email': typeof AuthVerifyEmailRoute
   '/activity': typeof ProtectedActivityRoute
   '/dashboard': typeof ProtectedDashboardRoute
+  '/donations': typeof ProtectedDonationsRoute
   '/example-protected-route': typeof ProtectedExampleProtectedRouteRoute
   '/settings': typeof ProtectedSettingsRoute
   '/': typeof PublicIndexRoute
@@ -193,6 +201,7 @@ export interface FileRoutesById {
   '/_auth/verify-email': typeof AuthVerifyEmailRoute
   '/_protected/activity': typeof ProtectedActivityRoute
   '/_protected/dashboard': typeof ProtectedDashboardRoute
+  '/_protected/donations': typeof ProtectedDonationsRoute
   '/_protected/example-protected-route': typeof ProtectedExampleProtectedRouteRoute
   '/_protected/settings': typeof ProtectedSettingsRoute
   '/_public/': typeof PublicIndexRoute
@@ -215,6 +224,7 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/activity'
     | '/dashboard'
+    | '/donations'
     | '/example-protected-route'
     | '/settings'
     | '/'
@@ -235,6 +245,7 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/activity'
     | '/dashboard'
+    | '/donations'
     | '/example-protected-route'
     | '/settings'
     | '/'
@@ -258,6 +269,7 @@ export interface FileRouteTypes {
     | '/_auth/verify-email'
     | '/_protected/activity'
     | '/_protected/dashboard'
+    | '/_protected/donations'
     | '/_protected/example-protected-route'
     | '/_protected/settings'
     | '/_public/'
@@ -315,6 +327,13 @@ declare module '@tanstack/react-router' {
       path: '/example-protected-route'
       fullPath: '/example-protected-route'
       preLoaderRoute: typeof ProtectedExampleProtectedRouteRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_protected/donations': {
+      id: '/_protected/donations'
+      path: '/donations'
+      fullPath: '/donations'
+      preLoaderRoute: typeof ProtectedDonationsRouteImport
       parentRoute: typeof ProtectedRoute
     }
     '/_protected/dashboard': {
@@ -454,6 +473,7 @@ const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
 interface ProtectedRouteChildren {
   ProtectedActivityRoute: typeof ProtectedActivityRoute
   ProtectedDashboardRoute: typeof ProtectedDashboardRoute
+  ProtectedDonationsRoute: typeof ProtectedDonationsRoute
   ProtectedExampleProtectedRouteRoute: typeof ProtectedExampleProtectedRouteRoute
   ProtectedSettingsRoute: typeof ProtectedSettingsRoute
   ProtectedTripsNewRoute: typeof ProtectedTripsNewRoute
@@ -464,6 +484,7 @@ interface ProtectedRouteChildren {
 const ProtectedRouteChildren: ProtectedRouteChildren = {
   ProtectedActivityRoute: ProtectedActivityRoute,
   ProtectedDashboardRoute: ProtectedDashboardRoute,
+  ProtectedDonationsRoute: ProtectedDonationsRoute,
   ProtectedExampleProtectedRouteRoute: ProtectedExampleProtectedRouteRoute,
   ProtectedSettingsRoute: ProtectedSettingsRoute,
   ProtectedTripsNewRoute: ProtectedTripsNewRoute,
