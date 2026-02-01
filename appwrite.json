@@ -1,0 +1,1231 @@
+{
+  "projectId": "697e4e680017bed1892c",
+  "databases": [
+    {
+      "$id": "imagine-project-db",
+      "name": "Imagine Project DB",
+      "enabled": true
+    }
+  ],
+  "collections": [
+    {
+      "$id": "users",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "users",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "accountType",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "name",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "email",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "phone",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "address",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "emergencyContact",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "is501c3",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "taxDeductible",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "stripeAccountId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "unlockKey",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 512,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "accountLocked",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "twoFactorEnabled",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_email",
+          "type": "key",
+          "status": "available",
+          "attributes": ["email"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "organizationMembers",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "organizationMembers",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "organizationId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "memberUserId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "memberEmail",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "memberName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_organizationId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["organizationId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "trips",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "trips",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "description",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 5000,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "location",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "startDate",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": null
+        },
+        {
+          "key": "endDate",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": null
+        },
+        {
+          "key": "fundraisingGoal",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": null
+        },
+        {
+          "key": "fundraisingProgress",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": 0
+        },
+        {
+          "key": "isRestrictedCountry",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "isActivated",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "paymentReceived",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "stripePaymentId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "isStarted",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "fileIds",
+          "type": "string",
+          "required": false,
+          "array": true,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_isActivated",
+          "type": "key",
+          "status": "available",
+          "attributes": ["isActivated"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "tripFollowers",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "tripFollowers",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "followerUserId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "followerName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "followerEmail",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "followerPhone",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 50,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "inviteToken",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_followerUserId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["followerUserId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "donations",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "donations",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "donorUserId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "donorName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "donorEmail",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "amount",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": null
+        },
+        {
+          "key": "coverProcessingFee",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "processingFeeAmount",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": 0
+        },
+        {
+          "key": "stripePaymentId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "receiptSent",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "missionaryId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_donorUserId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["donorUserId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "tripUpdates",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "tripUpdates",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 10000,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "notificationSent",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "comments",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "comments",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "parentType",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "parentId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 5000,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "authorName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "parentCommentId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_parentId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["parentId"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_parentCommentId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["parentCommentId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "reactions",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "reactions",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "commentId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "reactionType",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 50,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_commentId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["commentId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "journalEntries",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "journalEntries",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 10000,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "isPrivate",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "prayerIntercessors",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "prayerIntercessors",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "intercessorUserId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "intercessorName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "intercessorEmail",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_intercessorUserId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["intercessorUserId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "prayerRequests",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "prayerRequests",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "content",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 5000,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "notificationSent",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "notifications",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "notifications",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "userId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "type",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 100,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 1000,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "linkUrl",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 500,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "isRead",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": false
+        },
+        {
+          "key": "relatedId",
+          "type": "string",
+          "required": false,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "isVisible",
+          "type": "boolean",
+          "required": false,
+          "array": false,
+          "default": true
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_userId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["userId"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_isRead",
+          "type": "key",
+          "status": "available",
+          "attributes": ["isRead"],
+          "orders": ["ASC"]
+        }
+      ]
+    },
+    {
+      "$id": "tripMissionaries",
+      "$permissions": [],
+      "databaseId": "imagine-project-db",
+      "name": "tripMissionaries",
+      "enabled": true,
+      "documentSecurity": true,
+      "attributes": [
+        {
+          "key": "createdBy",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "tripId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "missionaryUserId",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 64,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "missionaryName",
+          "type": "string",
+          "required": true,
+          "array": false,
+          "size": 255,
+          "default": null,
+          "encrypt": false
+        },
+        {
+          "key": "fundraisingGoal",
+          "type": "integer",
+          "required": true,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": null
+        },
+        {
+          "key": "fundraisingProgress",
+          "type": "integer",
+          "required": false,
+          "array": false,
+          "min": null,
+          "max": null,
+          "default": 0
+        }
+      ],
+      "indexes": [
+        {
+          "key": "idx_createdBy",
+          "type": "key",
+          "status": "available",
+          "attributes": ["createdBy"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_tripId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["tripId"],
+          "orders": ["ASC"]
+        },
+        {
+          "key": "idx_missionaryUserId",
+          "type": "key",
+          "status": "available",
+          "attributes": ["missionaryUserId"],
+          "orders": ["ASC"]
+        }
+      ]
+    }
+  ],
+  "buckets": [
+    {
+      "$id": "imagine-project-bucket",
+      "$permissions": [],
+      "fileSecurity": true,
+      "name": "imagine-project-bucket",
+      "enabled": true,
+      "maximumFileSize": 50000000,
+      "allowedFileExtensions": [],
+      "compression": "none",
+      "encryption": true,
+      "antivirus": true
+    }
+  ]
+}
