@@ -3,7 +3,7 @@
   "endpoint": "https://sfo.cloud.appwrite.io/v1",
   "databases": [
     {
-      "$id": "697eb68200296ed8c026",
+      "$id": "697eef220015f1a0505e",
       "name": "Missionary Send DB",
       "enabled": true
     }
@@ -12,7 +12,7 @@
     {
       "$id": "users",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "users",
       "enabled": true,
       "documentSecurity": true,
@@ -156,7 +156,7 @@
     {
       "$id": "organizationMembers",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "organizationMembers",
       "enabled": true,
       "documentSecurity": true,
@@ -227,7 +227,7 @@
     {
       "$id": "trips",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "trips",
       "enabled": true,
       "documentSecurity": true,
@@ -371,7 +371,7 @@
     {
       "$id": "tripFollowers",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "tripFollowers",
       "enabled": true,
       "documentSecurity": true,
@@ -467,7 +467,7 @@
     {
       "$id": "donations",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "donations",
       "enabled": true,
       "documentSecurity": true,
@@ -595,7 +595,7 @@
     {
       "$id": "tripUpdates",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "tripUpdates",
       "enabled": true,
       "documentSecurity": true,
@@ -664,7 +664,7 @@
     {
       "$id": "comments",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "comments",
       "enabled": true,
       "documentSecurity": true,
@@ -751,7 +751,7 @@
     {
       "$id": "reactions",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "reactions",
       "enabled": true,
       "documentSecurity": true,
@@ -813,7 +813,7 @@
     {
       "$id": "journalEntries",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "journalEntries",
       "enabled": true,
       "documentSecurity": true,
@@ -882,7 +882,7 @@
     {
       "$id": "prayerIntercessors",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "prayerIntercessors",
       "enabled": true,
       "documentSecurity": true,
@@ -960,7 +960,7 @@
     {
       "$id": "prayerRequests",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "prayerRequests",
       "enabled": true,
       "documentSecurity": true,
@@ -1029,7 +1029,7 @@
     {
       "$id": "notifications",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "notifications",
       "enabled": true,
       "documentSecurity": true,
@@ -1139,7 +1139,7 @@
     {
       "$id": "tripMissionaries",
       "$permissions": [],
-      "databaseId": "697eb68200296ed8c026",
+      "databaseId": "697eef220015f1a0505e",
       "name": "tripMissionaries",
       "enabled": true,
       "documentSecurity": true,
