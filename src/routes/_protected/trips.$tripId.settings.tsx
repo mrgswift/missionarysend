@@ -1,7 +1,7 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useServerFn } from '@tanstack/react-start'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { PageContainer, PageHeader } from '@/components/layout'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -61,26 +61,18 @@ function TripSettingsPage() {
   const trip = data?.trip
 
   // Form state
-  const [title, setTitle] = useState(trip?.title || '')
-  const [description, setDescription] = useState(trip?.description || '')
-  const [location, setLocation] = useState(trip?.location || '')
-  const [startDate, setStartDate] = useState(
-    trip?.startDate ? format(new Date(trip.startDate), 'yyyy-MM-dd') : '',
-  )
-  const [endDate, setEndDate] = useState(
-    trip?.endDate ? format(new Date(trip.endDate), 'yyyy-MM-dd') : '',
-  )
-  const [fundraisingGoal, setFundraisingGoal] = useState(
-    trip?.fundraisingGoal?.toString() || '0',
-  )
-  const [isRestrictedCountry, setIsRestrictedCountry] = useState(
-    trip?.isRestrictedCountry || false,
-  )
-  const [fileIds, setFileIds] = useState<string[]>(trip?.fileIds || [])
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [location, setLocation] = useState('')
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+  const [fundraisingGoal, setFundraisingGoal] = useState('0')
+  const [isRestrictedCountry, setIsRestrictedCountry] = useState(false)
+  const [fileIds, setFileIds] = useState<string[]>([])
   const [featuredFileIndex, setFeaturedFileIndex] = useState(0)
 
   // Update form when trip data loads
-  useState(() => {
+  useEffect(() => {
     if (trip) {
       setTitle(trip.title)
       setDescription(trip.description || '')
@@ -91,7 +83,7 @@ function TripSettingsPage() {
       setIsRestrictedCountry(trip.isRestrictedCountry)
       setFileIds(trip.fileIds || [])
     }
-  })
+  }, [trip])
 
   // Update mutation
   const updateMutation = useMutation({
@@ -183,21 +175,19 @@ function TripSettingsPage() {
     toast.info('File upload coming soon')
   }
 
-  const handleRemoveFile = (index: number) => {
-    const newFileIds = [...fileIds]
-    newFileIds.splice(index, 1)
-    setFileIds(newFileIds)
+  const handleSetFeatured = (index: number) => {
+    setFeaturedFileIndex(index)
+  }
 
+  const handleRemoveFile = (index: number) => {
+    const newFileIds = fileIds.filter((_, i) => i !== index)
+    setFileIds(newFileIds)
     // Adjust featured index if needed
     if (featuredFileIndex === index) {
       setFeaturedFileIndex(0)
     } else if (featuredFileIndex > index) {
       setFeaturedFileIndex(featuredFileIndex - 1)
     }
-  }
-
-  const handleSetFeatured = (index: number) => {
-    setFeaturedFileIndex(index)
   }
 
   if (isLoading) {
