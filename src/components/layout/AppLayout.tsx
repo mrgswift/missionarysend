@@ -81,32 +81,30 @@ export function AppLayout({
       </AnimatePresence>
 
       {/* Main Content Area */}
-      <motion.div
-        initial={false}
-        animate={{ marginLeft: isCollapsed ? 72 : 240 }}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className={cn(
-          'min-h-screen flex flex-col',
-          'md:ml-[240px]', // Default margin for desktop
-          'ml-0', // No margin on mobile
-        )}
-        style={{
-          marginLeft:
-            typeof window !== 'undefined' && window.innerWidth >= 768
-              ? isCollapsed
-                ? 72
-                : 240
-              : 0,
-        }}
-      >
-        <AppHeader
-          title={title}
-          onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          isMobileMenuOpen={isMobileMenuOpen}
-        />
+      <div className="min-h-screen flex flex-col md:ml-0">
+        {/* Desktop: Animated margin based on sidebar state */}
+        <motion.div
+          initial={false}
+          animate={{
+            marginLeft:
+              typeof window !== 'undefined' && window.innerWidth >= 768
+                ? isCollapsed
+                  ? 72
+                  : 240
+                : 0,
+          }}
+          transition={{ duration: 0.2, ease: 'easeInOut' }}
+          className="min-h-screen flex flex-col"
+        >
+          <AppHeader
+            title={title}
+            onMobileMenuToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            isMobileMenuOpen={isMobileMenuOpen}
+          />
 
-        <main className="flex-1 p-4 md:p-6">{children || <Outlet />}</main>
-      </motion.div>
+          <main className="flex-1 p-4 md:p-6">{children || <Outlet />}</main>
+        </motion.div>
+      </div>
     </div>
   )
 }
@@ -119,7 +117,9 @@ export function PageContainer({
   children: React.ReactNode
   className?: string
 }) {
-  return <div className={cn('max-w-5xl mx-auto', className)}>{children}</div>
+  return (
+    <div className={cn('w-full max-w-7xl mx-auto', className)}>{children}</div>
+  )
 }
 
 export function PageHeader({

@@ -1,44 +1,21 @@
-import { Link, useLocation } from '@tanstack/react-router'
-import { cn } from '@/lib/utils'
-import { motion, AnimatePresence } from 'motion/react'
+import { Link, useRouterState } from '@tanstack/react-router'
 import {
-  LayoutDashboard,
-  Map,
+  Home,
+  Plane,
+  DollarSign,
   Heart,
-  BookOpen,
   Settings,
-  HelpCircle,
   ChevronLeft,
   ChevronRight,
-  LogOut,
-  HandHeart,
-  Users,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
-import { useAuth } from '@/hooks/use-auth'
+import { cn } from '@/lib/utils'
 import type { AccountType } from '@/types'
 
-interface NavItem {
-  title: string
-  href: string
-  icon: React.ReactNode
-}
-
 interface AppSidebarProps {
-  profile?: {
-    name: string
-    email: string
-    accountType?: string
-  } | null
   isCollapsed: boolean
   onToggle: () => void
-  accountType?: AccountType
+  accountType: AccountType
 }
 
 export function AppSidebar({
@@ -46,237 +23,142 @@ export function AppSidebar({
   onToggle,
   accountType,
 }: AppSidebarProps) {
-  const location = useLocation()
-  const { signOut } = useAuth()
+  const router = useRouterState()
+  const currentPath = router.location.pathname
 
-  // Navigation items for missionaries/organizations
-  const missionaryNavItems: NavItem[] = [
-    {
-      title: 'Dashboard',
-      href: '/dashboard',
-      icon: <LayoutDashboard className="h-5 w-5" />,
-    },
-    { title: 'My Trips', href: '/trips', icon: <Map className="h-5 w-5" /> },
-    {
-      title: 'Donations',
-      href: '/donations',
-      icon: <Heart className="h-5 w-5" />,
-    },
-    {
-      title: 'Journal',
-      href: '/journal',
-      icon: <BookOpen className="h-5 w-5" />,
-    },
-    {
-      title: 'Prayer',
-      href: '/prayer',
-      icon: <HandHeart className="h-5 w-5" />,
-    },
-  ]
+  // Navigation items based on account type
+  const getNavigationItems = () => {
+    const baseItems = [
+      {
+        title: 'Dashboard',
+        href: '/dashboard',
+        icon: <Home className="h-5 w-5" />,
+      },
+    ]
 
-  // Navigation items for followers
-  const followerNavItems: NavItem[] = [
-    {
-      title: 'Dashboard',
-      href: '/dashboard',
-      icon: <LayoutDashboard className="h-5 w-5" />,
-    },
-    {
-      title: 'Following',
-      href: '/dashboard',
-      icon: <Users className="h-5 w-5" />,
-    },
-    {
-      title: 'My Donations',
-      href: '/donations',
-      icon: <Heart className="h-5 w-5" />,
-    },
-  ]
-
-  // Navigation items for prayer intercessors
-  const intercessorNavItems: NavItem[] = [
-    {
-      title: 'Dashboard',
-      href: '/dashboard',
-      icon: <LayoutDashboard className="h-5 w-5" />,
-    },
-    {
-      title: 'Prayer Teams',
-      href: '/dashboard',
-      icon: <HandHeart className="h-5 w-5" />,
-    },
-  ]
-
-  // Select navigation based on account type
-  const getMainNavItems = (): NavItem[] => {
-    switch (accountType) {
-      case 'follower':
-        return followerNavItems
-      case 'intercessor':
-        return intercessorNavItems
-      default:
-        return missionaryNavItems
-    }
-  }
-
-  const mainNavItems = getMainNavItems()
-
-  const bottomNavItems: NavItem[] = [
-    {
-      title: 'Settings',
-      href: '/settings',
-      icon: <Settings className="h-5 w-5" />,
-    },
-    { title: 'Help', href: '/help', icon: <HelpCircle className="h-5 w-5" /> },
-  ]
-
-  const isActive = (href: string) => {
-    return (
-      location.pathname === href || location.pathname.startsWith(href + '/')
-    )
-  }
-
-  const NavLink = ({ item }: { item: NavItem }) => {
-    const active = isActive(item.href)
-
-    const linkContent = (
-      <Link
-        to={item.href}
-        className={cn(
-          'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200',
-          'hover:bg-slate-100',
-          active && 'bg-slate-900 text-white hover:bg-slate-800',
-          !active && 'text-slate-600',
-          isCollapsed && 'justify-center px-2',
-        )}
-      >
-        <span className={cn(active && 'text-white')}>{item.icon}</span>
-        <AnimatePresence mode="wait">
-          {!isCollapsed && (
-            <motion.span
-              initial={{ opacity: 0, width: 0 }}
-              animate={{ opacity: 1, width: 'auto' }}
-              exit={{ opacity: 0, width: 0 }}
-              transition={{ duration: 0.2 }}
-              className="font-medium text-sm whitespace-nowrap overflow-hidden"
-            >
-              {item.title}
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </Link>
-    )
-
-    if (isCollapsed) {
-      return (
-        <Tooltip delayDuration={0}>
-          <TooltipTrigger asChild>{linkContent}</TooltipTrigger>
-          <TooltipContent side="right" className="font-medium">
-            {item.title}
-          </TooltipContent>
-        </Tooltip>
-      )
+    if (accountType === 'missionary' || accountType === 'organization') {
+      return [
+        ...baseItems,
+        {
+          title: 'My Trips',
+          href: '/trips',
+          icon: <Plane className="h-5 w-5" />,
+        },
+        {
+          title: 'Donations',
+          href: '/donations',
+          icon: <DollarSign className="h-5 w-5" />,
+        },
+        {
+          title: 'Settings',
+          href: '/settings',
+          icon: <Settings className="h-5 w-5" />,
+        },
+      ]
     }
 
-    return linkContent
+    if (accountType === 'follower' || accountType === 'intercessor') {
+      return [
+        ...baseItems,
+        {
+          title: 'Prayer',
+          href: '/prayer',
+          icon: <Heart className="h-5 w-5" />,
+        },
+        {
+          title: 'Settings',
+          href: '/settings',
+          icon: <Settings className="h-5 w-5" />,
+        },
+      ]
+    }
+
+    return baseItems
   }
+
+  const navigationItems = getNavigationItems()
 
   return (
-    <TooltipProvider>
-      <motion.aside
-        initial={false}
-        animate={{ width: isCollapsed ? 72 : 240 }}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="h-screen bg-white border-r border-slate-200 flex flex-col fixed left-0 top-0 z-40"
-      >
-        {/* Logo Area */}
-        <div
-          className={cn(
-            'h-16 flex items-center border-b border-slate-200 px-4',
-            isCollapsed && 'justify-center px-2',
+    <aside
+      className={cn(
+        'fixed left-0 top-0 h-screen bg-white border-r border-slate-200 transition-all duration-200 ease-in-out z-40',
+        isCollapsed ? 'w-[72px]' : 'w-60',
+      )}
+    >
+      <div className="flex flex-col h-full">
+        {/* Logo/Brand */}
+        <div className="h-16 flex items-center justify-between px-4 border-b border-slate-200">
+          {!isCollapsed && (
+            <Link to="/dashboard" className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                <Plane className="h-5 w-5 text-white" />
+              </div>
+              <span className="font-semibold text-lg text-slate-900">
+                MissionHub
+              </span>
+            </Link>
           )}
-        >
-          <Link to="/dashboard" className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">MS</span>
-            </div>
-            <AnimatePresence mode="wait">
-              {!isCollapsed && (
-                <motion.div
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: 'auto' }}
-                  exit={{ opacity: 0, width: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
-                >
-                  <span className="font-semibold text-slate-900 whitespace-nowrap">
-                    Missionary Send
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </Link>
+          {isCollapsed && (
+            <Link
+              to="/dashboard"
+              className="flex items-center justify-center w-full"
+            >
+              <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                <Plane className="h-5 w-5 text-white" />
+              </div>
+            </Link>
+          )}
         </div>
 
-        {/* Main Navigation */}
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
-          {mainNavItems.map((item) => (
-            <NavLink key={item.href} item={item} />
-          ))}
+        {/* Navigation */}
+        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          {navigationItems.map((item) => {
+            const isActive =
+              currentPath === item.href ||
+              currentPath.startsWith(item.href + '/')
+            return (
+              <Link
+                key={item.href}
+                to={item.href}
+                className={cn(
+                  'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
+                  'hover:bg-slate-100',
+                  isActive && 'bg-slate-900 text-white hover:bg-slate-800',
+                  !isActive && 'text-slate-700',
+                  isCollapsed && 'justify-center',
+                )}
+              >
+                {item.icon}
+                {!isCollapsed && (
+                  <span className="font-medium text-sm">{item.title}</span>
+                )}
+              </Link>
+            )
+          })}
         </nav>
 
-        {/* Bottom Navigation */}
-        <div className="p-3 border-t border-slate-200 space-y-1">
-          {bottomNavItems.map((item) => (
-            <NavLink key={item.href} item={item} />
-          ))}
-
-          {/* Sign Out Button */}
-          {isCollapsed ? (
-            <Tooltip delayDuration={0}>
-              <TooltipTrigger asChild>
-                <button
-                  onClick={signOut}
-                  className="flex items-center justify-center gap-3 px-2 py-2.5 rounded-lg transition-all duration-200 hover:bg-rose-50 text-slate-600 hover:text-rose-600 w-full"
-                >
-                  <LogOut className="h-5 w-5" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="right" className="font-medium">
-                Sign Out
-              </TooltipContent>
-            </Tooltip>
-          ) : (
-            <button
-              onClick={signOut}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 hover:bg-rose-50 text-slate-600 hover:text-rose-600 w-full"
-            >
-              <LogOut className="h-5 w-5" />
-              <span className="font-medium text-sm">Sign Out</span>
-            </button>
-          )}
-        </div>
-
-        {/* Collapse Toggle */}
-        <div className="p-3 border-t border-slate-200">
+        {/* Toggle Button - Hidden on mobile */}
+        <div className="p-3 border-t border-slate-200 hidden md:block">
           <Button
             variant="ghost"
             size="sm"
             onClick={onToggle}
             className={cn(
-              'w-full justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100',
+              'w-full justify-center',
               !isCollapsed && 'justify-between',
             )}
           >
-            {!isCollapsed && <span className="text-xs">Collapse</span>}
+            {!isCollapsed && (
+              <span className="text-sm text-slate-600">Collapse</span>
+            )}
             {isCollapsed ? (
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-4 w-4 text-slate-600" />
             ) : (
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-4 w-4 text-slate-600" />
             )}
           </Button>
         </div>
-      </motion.aside>
-    </TooltipProvider>
+      </div>
+    </aside>
   )
 }
