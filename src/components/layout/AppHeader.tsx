@@ -2,7 +2,7 @@ import { Bell, Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { useAuth } from '@/hooks/use-auth'
-import { Link } from '@tanstack/react-router'
+import { useNavigate } from '@tanstack/react-router'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,6 +33,7 @@ export function AppHeader({
 }: AppHeaderProps) {
   const { currentUser } = useAuth()
   const queryClient = useQueryClient()
+  const navigate = useNavigate()
 
   // Fetch notifications
   const getNotifications = useServerFn(getNotificationsFn)
@@ -176,15 +177,15 @@ export function AppHeader({
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link to="/settings">Settings</Link>
+              <DropdownMenuItem onClick={() => navigate({ to: '/settings' })}>
+                Settings
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link to="/activity">Activity Log</Link>
+              <DropdownMenuItem onClick={() => navigate({ to: '/activity' })}>
+                Activity Log
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link to="/sign-out">Sign Out</Link>
+              <DropdownMenuItem onClick={() => navigate({ to: '/sign-out' })}>
+                Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -8,7 +8,7 @@ export const Route = createFileRoute('/_protected/settings')({
 })
 
 function SettingsPage() {
-  const { profile } = protectedRoute.useLoaderData()
+  const { profile } = protectedRoute.useRouteContext()
 
   return (
     <AccountSettingsPage
