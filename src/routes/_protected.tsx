@@ -7,7 +7,7 @@ import { AppLayout } from '@/components/layout'
 import type { AccountType } from '@/types'
 
 export const Route = createFileRoute('/_protected')({
-  loader: async ({ location }) => {
+  beforeLoad: async ({ location }) => {
     const { currentUser } = await authMiddleware()
 
     if (!currentUser) {
@@ -46,7 +46,7 @@ export const Route = createFileRoute('/_protected')({
 })
 
 function ProtectedLayout() {
-  const { profile } = Route.useLoaderData()
+  const { profile } = Route.useRouteContext()
 
   // Determine account type with proper typing
   const accountType: AccountType =
