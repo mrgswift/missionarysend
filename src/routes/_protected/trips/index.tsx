@@ -14,6 +14,7 @@ import {
   Settings,
   Image as ImageIcon,
   Lock,
+  Eye,
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { getTripsFn } from '@/server/functions/trips'
@@ -153,6 +154,16 @@ function MyTripsPage() {
 
                   {/* Actions */}
                   <div className="flex gap-2">
+                    <Link
+                      to="/trip/$tripId"
+                      params={{ tripId: trip.$id }}
+                      className="flex-1"
+                    >
+                      <Button variant="outline" className="w-full" size="sm">
+                        <Eye className="h-3.5 w-3.5 md:h-4 md:w-4 mr-1.5 md:mr-2" />
+                        View Trip
+                      </Button>
+                    </Link>
                     <Link
                       to="/trips/$tripId/settings"
                       params={{ tripId: trip.$id }}

@@ -19,6 +19,7 @@ import {
   Heart,
   Image as ImageIcon,
   Eye,
+  Settings,
 } from 'lucide-react'
 import { format } from 'date-fns'
 import { getTripsFn } from '@/server/functions/trips'
@@ -191,6 +192,7 @@ function MissionaryDashboard() {
                 trip={trip}
                 linkTo={`/trips/${trip.$id}/settings`}
                 buttonLabel="Settings"
+                showSettings={true}
               />
             ))}
           </div>
@@ -494,6 +496,7 @@ interface TripCardProps {
   linkTo: string
   buttonLabel?: string
   isPrayer?: boolean
+  showSettings?: boolean
 }
 
 function TripCard({
@@ -501,6 +504,7 @@ function TripCard({
   linkTo,
   buttonLabel = 'View',
   isPrayer,
+  showSettings,
 }: TripCardProps) {
   const progress =
     trip.fundraisingGoal > 0
@@ -557,12 +561,29 @@ function TripCard({
         </div>
 
         {/* Action Button */}
-        <Link to={linkTo}>
-          <Button variant="outline" size="sm" className="w-full">
-            <Eye className="h-3.5 w-3.5 mr-1.5" />
-            {buttonLabel}
-          </Button>
-        </Link>
+        {showSettings ? (
+          <div className="flex gap-2">
+            <Link to={`/trip/${trip.$id}`} className="flex-1">
+              <Button variant="outline" size="sm" className="w-full">
+                <Eye className="h-3.5 w-3.5 mr-1.5" />
+                View Trip
+              </Button>
+            </Link>
+            <Link to={`/trips/${trip.$id}/settings`} className="flex-1">
+              <Button variant="outline" size="sm" className="w-full">
+                <Settings className="h-3.5 w-3.5 mr-1.5" />
+                Settings
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <Link to={linkTo}>
+            <Button variant="outline" size="sm" className="w-full">
+              <Eye className="h-3.5 w-3.5 mr-1.5" />
+              {buttonLabel}
+            </Button>
+          </Link>
+        )}
       </div>
     </Card>
   )

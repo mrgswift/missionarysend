@@ -17,6 +17,7 @@ import { useServerFn } from '@tanstack/react-start'
 import {
   getNotificationsFn,
   dismissNotificationFn,
+  markNotificationReadFn,
 } from '@/server/functions/notifications'
 import { formatDistanceToNow } from 'date-fns'
 
@@ -56,7 +57,42 @@ export function AppHeader({
     },
   })
 
-  const handleDismiss = async (notificationId: string) => {
+  // Mark notification as read mutation
+  const markAsRead = useServerFn(markNotificationReadFn)
+  const markAsReadMutation = useMutation({
+    mutationFn: (notificationId: string) =>
+      markAsRead({ data: { notificationId } }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['notifications'] })
+    },
+  })
+
+  const handleNotificationClick = async (notification: {
+    $id: string
+    linkUrl: string | null
+    isRead: boolean
+  }) => {
+    // Mark as read if not already
+    if (!notification.isRead) {
+      await markAsReadMutation.mutateAsync(notification.$id)
+    }
+
+    // Navigate to the link if it exists
+    if (notification.linkUrl) {
+      // Parse the URL to extract path and query params
+      const url = new URL(notification.linkUrl, window.location.origin)
+      const pathname = url.pathname
+      const searchParams = Object.fromEntries(url.searchParams.entries())
+
+      void navigate({
+        to: pathname,
+        search: searchParams,
+      })
+    }
+  }
+
+  const handleDismiss = async (e: React.MouseEvent, notificationId: string) => {
+    e.stopPropagation()
     await dismissMutation.mutateAsync(notificationId)
   }
 
@@ -125,7 +161,7 @@ export function AppHeader({
                   <DropdownMenuItem
                     key={notification.$id}
                     className="flex flex-col items-start gap-1 p-3 cursor-pointer"
-                    onClick={() => handleDismiss(notification.$id)}
+                    onClick={() => handleNotificationClick(notification)}
                   >
                     <div className="flex items-start justify-between w-full gap-2">
                       <div className="flex-1 min-w-0">
@@ -136,9 +172,17 @@ export function AppHeader({
                           {notification.message}
                         </p>
                       </div>
-                      {!notification.isRead && (
-                        <div className="h-2 w-2 rounded-full bg-blue-500 flex-shrink-0 mt-1" />
-                      )}
+                      <div className="flex items-center gap-1 flex-shrink-0">
+                        {!notification.isRead && (
+                          <div className="h-2 w-2 rounded-full bg-blue-500 mt-1" />
+                        )}
+                        <button
+                          onClick={(e) => handleDismiss(e, notification.$id)}
+                          className="text-slate-400 hover:text-slate-600 p-1 rounded hover:bg-slate-100"
+                        >
+                          <X className="h-3 w-3" />
+                        </button>
+                      </div>
                     </div>
                     <span className="text-xs text-slate-400">
                       {formatDistanceToNow(new Date(notification.$createdAt), {
